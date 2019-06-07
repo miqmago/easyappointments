@@ -187,6 +187,16 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="provider-past-days"><?= lang('sync_past_days') ?></label>
+                                    <input type="number" id="provider-sync-past-days" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="provider-future-days"><?= lang('sync_future_days') ?></label>
+                                    <input type="number" id="provider-sync-future-days" class="form-control">
+                                </div>
+
                                 <br>
 
                                 <button type="button" id="provider-notifications" class="btn btn-default" data-toggle="button">

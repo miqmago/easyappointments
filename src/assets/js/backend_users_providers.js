@@ -164,7 +164,9 @@
                     username: $('#provider-username').val(),
                     working_plan: JSON.stringify(BackendUsers.wp.get()),
                     notifications: $('#provider-notifications').hasClass('active'),
-                    calendar_view: $('#provider-calendar-view').val()
+                    calendar_view: $('#provider-calendar-view').val(),
+                    sync_future_days: $('#provider-sync-future-days').val(),
+                    sync_past_days: $('#provider-sync-past-days').val()
                 }
             };
 
@@ -391,6 +393,8 @@
 
         $('#provider-username').val(provider.settings.username);
         $('#provider-calendar-view').val(provider.settings.calendar_view);
+        $('#provider-sync-future-days').val(provider.settings.sync_future_days);
+        $('#provider-sync-past-days').val(provider.settings.sync_past_days);
         if (provider.settings.notifications == true) {
             $('#provider-notifications').addClass('active');
         } else {
