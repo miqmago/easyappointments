@@ -454,15 +454,33 @@ class Appointments extends CI_Controller {
             $this->load->model('settings_model');
 
             // Validate the CAPTCHA string.
-            if ($this->settings_model->get_setting('require_captcha') === '1'
-                && $this->session->userdata('captcha_phrase') !== $this->input->post('captcha'))
+            if ($this->settings_model->get_setting('require_captcha') === '1')
             {
-                $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode([
-                        'captcha_verification' => FALSE
-                    ]));
-                return;
+                $recaptcha = $this->input->post('captcha');
+
+                $url = 'https://www.google.com/recaptcha/api/siteverify';
+                $data = array(
+                    'secret' => Config::GOOGLE_RECAPTCHA_SECRET,
+                    'response' => $recaptcha
+                );
+                $options = array(
+                    'http' => array (
+                        'method' => 'POST',
+                        'content' => http_build_query($data)
+                    )
+                );
+                $context  = stream_context_create($options);
+                $verify = file_get_contents($url, false, $context);
+                $captcha_success = json_decode($verify);
+                if (!$captcha_success->success) {
+                    // Eres un robot!
+                    $this->output
+                        ->set_content_type('application/json')
+                        ->set_output(json_encode([
+                            'captcha_verification' => FALSE
+                        ]));
+                    return;
+                }
             }
 
             // Check appointment availability.

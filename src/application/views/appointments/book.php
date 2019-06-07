@@ -302,13 +302,8 @@
                         <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
                         <div class="frame-content row">
                             <div class="col-xs-12 col-sm-6">
-                                <h4 class="captcha-title">
-                                    CAPTCHA
-                                    <small class="glyphicon glyphicon-refresh"></small>
-                                </h4>
-                                <img class="captcha-image" src="<?= site_url('captcha') ?>">
-                                <input class="captcha-text" type="text" value="" />
-                                <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
+                                <div class="g-recaptcha" data-sitekey="<?php echo Config::GOOGLE_RECAPTCHA_SITE_KEY; ?>"></div>
+                                <p class="text-danger hidden g-recaptcha-error">Are you a bot?</p>
                             </div>
                         </div>
                         <?php endif; ?>
@@ -390,6 +385,9 @@
     <script src="<?= asset_url('assets/ext/datejs/date.js') ?>"></script>
     <script src="<?= asset_url('assets/js/frontend_book_api.js') ?>"></script>
     <script src="<?= asset_url('assets/js/frontend_book.js') ?>"></script>
+    <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <?php endif; ?>
 
     <script>
         $(document).ready(function() {

@@ -131,6 +131,17 @@ window.FrontendBookApi = window.FrontendBookApi || {};
             postData.captcha = $captchaText.val();
         }
 
+        var $grecaptcha = $('.g-recaptcha');
+        var $grecaptcharesp = $('.g-recaptcha-response');
+        if ($grecaptcha.length > 0) {
+            postData.captcha = $grecaptcharesp.val();
+            if ($grecaptcharesp.val() === '') {
+                $grecaptcha.closest('.form-group').addClass('has-error');
+                return;
+            }
+            $('.g-recaptcha-error').addClass('hidden');
+        }
+
         if (GlobalVariables.manageMode) {
             postData.exclude_appointment_id = GlobalVariables.appointmentData.id;
         }
@@ -175,6 +186,8 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     $('.captcha-title small').trigger('click');
 
                     $captchaText.closest('.form-group').addClass('has-error');
+                    grecaptcha.reset();
+                    $('.g-recaptcha-error').removeClass('hidden');
 
                     return false;
                 }

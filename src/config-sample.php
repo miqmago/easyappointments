@@ -52,6 +52,13 @@ class Config {
     const GOOGLE_CLIENT_ID      = '';
     const GOOGLE_CLIENT_SECRET  = '';
     const GOOGLE_API_KEY        = '';
+
+    // ------------------------------------------------------------------------
+    // GOOGLE RECAPTCHA v2
+    // ------------------------------------------------------------------------
+
+    const GOOGLE_RECAPTCHA_SECRET   = '';
+    const GOOGLE_RECAPTCHA_SITE_KEY = '';
 }
 
 /* End of file config.php */
