@@ -169,6 +169,14 @@ class Google_Sync {
             $event->attendees[] = $event_customer;
         }
 
+        // Set description
+        $description = $customer['first_name'] . ' ' . $customer['last_name'] . ' phone number: ' . $customer['phone_number'];
+        $description = $description . PHP_EOL . $provider['first_name'] . ' ' . $provider['last_name'] . ' phone number: ' . $provider['phone_number'];
+        if ($appointment['notes']) {
+            $description = $description . PHP_EOL . PHP_EOL . $appointment['notes'];
+        }
+        $event->setDescription($description);
+
         // Add the new event to the google calendar.
         $created_event = $this->service->events->insert($provider['settings']['google_calendar'], $event);
 

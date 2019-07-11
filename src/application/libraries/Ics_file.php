@@ -73,6 +73,14 @@ class Ics_file {
 
         $event->setOrganizer($organizer);
 
+        // Set description
+        $description = $customer['first_name'] . ' ' . $customer['last_name'] . ' phone number: ' . $customer['phone_number'];
+        $description = $description . ' ------ ' . $provider['first_name'] . ' ' . $provider['last_name'] . ' phone number: ' . $provider['phone_number'];
+        if ($appointment['notes']) {
+            $description = $description . ' ------ ' . $appointment['notes'];
+        }
+        $event->setDescription($description);
+
         // Setup calendar.
         $calendar = new Calendar();
 
